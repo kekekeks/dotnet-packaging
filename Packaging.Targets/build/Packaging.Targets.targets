@@ -5,7 +5,7 @@
 
   <Target Name="CreateRpm" DependsOnTargets="Publish">
     <PropertyGroup>
-      <RpmPath>$(TargetDir)$(TargetName).$(AssemblyFileVersion)-$(RuntimeIdentifier).rpm</RpmPath>
+      <RpmPath Condition="'$(RpmPath)' == ''">$(TargetDir)$(TargetName).$(AssemblyFileVersion)-$(RuntimeIdentifier).rpm</RpmPath>
       <CpioPath>$(IntermediateOutputPath)$(TargetName).$(AssemblyFileVersion)-$(RuntimeIdentifier).cpio</CpioPath>
       <Prefix>./usr/share/$(TargetName)</Prefix>
       <Release>0</Release>
@@ -23,7 +23,7 @@
   
   <Target Name="CreateTarball" DependsOnTargets="Publish">
     <PropertyGroup>
-      <TarballPath>$(TargetDir)$(TargetName).$(AssemblyFileVersion)-$(RuntimeIdentifier).tar.gz</TarballPath>
+      <TarballPath Condition="'$(TarballPath)' == ''">$(TargetDir)$(TargetName).$(AssemblyFileVersion)-$(RuntimeIdentifier).tar.gz</TarballPath>
     </PropertyGroup>
 
     <TarballTask PublishDir="$(PublishDir)"
@@ -32,7 +32,7 @@
 
   <Target Name="CreateZip" DependsOnTargets="Publish">
     <PropertyGroup>
-      <ZipPath>$(TargetDir)$(TargetName).$(AssemblyFileVersion)-$(RuntimeIdentifier).zip</ZipPath>
+      <ZipPath Condition="'$(ZipPath)' == ''">$(TargetDir)$(TargetName).$(AssemblyFileVersion)-$(RuntimeIdentifier).zip</ZipPath>
     </PropertyGroup>
 
     <ZipTask PublishDir="$(PublishDir)"
@@ -60,7 +60,7 @@
     <HarvestObjectFilePath>$(IntermediateOutputPath)$(TargetName).harvest.wixobj</HarvestObjectFilePath>
     <ProductSourceFilePath>$(MSBuildThisFileDirectory)\Product.wxs</ProductSourceFilePath>
     <ProductObjectFilePath>$(IntermediateOutputPath)$(TargetName).product.wixobj</ProductObjectFilePath>
-    <SetupFilePath>$(TargetDir)$(TargetName).msi</SetupFilePath>
+    <SetupFilePath Condition="'$(SetupFilePath)' == ''">$(TargetDir)$(TargetName).msi</SetupFilePath>
     <Heat>$(WixInstallPath)bin\heat.exe</Heat>
     <Candle>$(WixInstallPath)bin\candle.exe</Candle>
     <Light>$(WixInstallPath)bin\light.exe</Light>
