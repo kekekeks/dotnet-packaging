@@ -36,6 +36,22 @@ namespace Packaging.Targets.IO
         /// </summary>
         public string SourceFilename
         { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the function to obtain the source contents stream
+        /// </summary>
+        public Func<Stream> SourceStreamGetter
+        { get; set; }
+
+        /// <summary>
+        /// Gets the stream with file contents
+        /// </summary>
+        public Stream GetStream()
+        {
+            if (SourceStreamGetter != null)
+                return SourceStreamGetter();
+            return System.IO.File.OpenRead(SourceFilename);
+        }
 
         /// <summary>
         /// Gets or sets the total file size, in bytes.

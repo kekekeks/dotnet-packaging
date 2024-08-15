@@ -116,7 +116,7 @@ namespace Packaging.Targets.IO
                 if (isFile)
                 {
                     dispose = true;
-                    data = File.OpenRead(entry.SourceFilename);
+                    data = entry.GetStream();
                 }
                 else
                 {

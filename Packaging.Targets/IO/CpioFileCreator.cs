@@ -154,7 +154,7 @@ namespace Packaging.Targets.IO
                 targetPath = "." + targetPath;
             }
 
-            using (Stream fileStream = File.OpenRead(entry.SourceFilename))
+            using (Stream fileStream = entry.GetStream())
             {
                 CpioHeader cpioHeader = new CpioHeader()
                 {
